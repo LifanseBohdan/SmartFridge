@@ -22,5 +22,11 @@
             _products.Remove(prod);
             return true;
         }
+
+        public List<Product> GetExpiredProducts()
+        {
+            var now = DateTime.UtcNow;
+            return _products.Where(p => p.ExpirationDate < now).ToList();
+        }
     }
 }
