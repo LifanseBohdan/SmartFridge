@@ -14,5 +14,13 @@
         {
             return new List<Product>(_products);
         }
+
+        public bool RemoveProduct(string productName)
+        {
+            var prod = _products.FirstOrDefault(x => x.Name == productName);
+            if (prod == null) return false;
+            _products.Remove(prod);
+            return true;
+        }
     }
 }
