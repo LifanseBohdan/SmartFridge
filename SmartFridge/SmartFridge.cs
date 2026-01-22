@@ -25,27 +25,21 @@
 
         public List<Product> GetExpiredProducts()
         {
-            var now = DateTime.UtcNow;
-            return _products.Where(p => p.ExpirationDate < now).ToList();
-        }
-
-         public Product GetExpiredDup(Product p1, Product p2)
+            var expiredList = new List<Product>();
+            for (int i = 0; i < _products.Count; i++)
     {
-        if (p1.Name != p2.Name)
-        { імена різні
-        }
-
-        if (p1.ExpiryDate < DateTime.Now)
+        for (int j = i + 1; j < _products.Count; j++)
         {
-            return p1;
+            var expired = GetExpiredDuplicate(_products[i], _products[j]);
+            
+            if (expired != null && !expiredList.Contains(expired))
+            {
+                expiredList.Add(expired);
+            }
         }
-
-        if (p2.ExpiryDate < DateTime.Now)
-        {
-            return p2;
-        }
-
-        return null;
     }
+    
+    return expiredList;
+        }
     }
 }
