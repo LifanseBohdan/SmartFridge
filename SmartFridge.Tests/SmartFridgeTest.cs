@@ -51,5 +51,30 @@ namespace SmartFridge.Tests
             Assert.Single(expiredProducts);
             Assert.Equal("Yogurt", expiredProducts[0].Name);
         }
+
+        [Fact]
+public void SmartFridge_ShouldReturnExpiredProduct_FromTwoGiven()
+{
+    var fridge = new SmartFridge();
+    string name = "Молоко";
+
+    var fresh = new Product 
+    { 
+        Name = name, 
+        ExpiryDate = DateTime.Now.AddDays(10) 
+    };
+
+    var expired = new Product 
+    { 
+        Name = name, 
+        ExpiryDate = DateTime.Now.AddDays(-1) 
+    };
+
+    var result = fridge.GetExpiredDuplicate(fresh, expired);
+
+    Assert.NotNull(result);
+    Assert.Equal(expired.ExpiryDate, result.ExpiryDate);
+    Assert.True(result.ExpiryDate < DateTime.Now);
+}
     }
 }
