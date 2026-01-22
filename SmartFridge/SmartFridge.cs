@@ -28,5 +28,24 @@
             var now = DateTime.UtcNow;
             return _products.Where(p => p.ExpirationDate < now).ToList();
         }
+
+         public Product GetExpiredDup(Product p1, Product p2)
+    {
+        if (p1.Name != p2.Name)
+        { імена різні
+        }
+
+        if (p1.ExpiryDate < DateTime.Now)
+        {
+            return p1;
+        }
+
+        if (p2.ExpiryDate < DateTime.Now)
+        {
+            return p2;
+        }
+
+        return null;
+    }
     }
 }
